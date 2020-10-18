@@ -1,11 +1,11 @@
 ## CRecommend
-The java implementation of UserCF and ItemCF, training waste less time, get result data more fast! Has used to be our product project.
+The java implementation of UserCF and ItemCF, training waste less time, get result data more fast! Using an algorithm that conforms to production practice to make user score matrix and item socre matrix as many as small.
 
 the number of 350000 data just used 23min in training. That's cool.
 
 And it has been used in our production, if your app data not so big (below 20 million user log data a day), I think it can let you happy to use it.
 
-> chinese inroduction is below
+> chinese introduction is below
 
 ## How to use
 You have undanstand the recommend ItemCF and UserCF algorithm.
@@ -32,6 +32,7 @@ readCsv.readWithCsvBeanReader(filePath);
 ## CRecommend
 基于UserCF和ItemCF协同过滤推荐算法Java实现，在训练数据时，25万条在23分钟训练完成，商品稀疏矩阵占用更少的内存，在训练的过程中就已经排序完成。
 
+
 使用Java springboot实现，能够更容易的扩展更容易的修改相关功能。该项目已经应用在我们的项目组，尤其对于我们这种节约成本的小组又希望有一个可靠的推荐算法，是一个福音，代码简单，训练数据的速度非常可观。
 
 ## 使用启动方式
@@ -43,3 +44,11 @@ readCsv.readWithCsvBeanReader(filePath);
 - 你需要配置 `RecommandApplication` 该类，指定csv训练数据的地址，然后就能启动运行了。
 
 - 训练数据保存在mongodb中，你还需要安装一个Mongodb数据库
+
+#### 我写了一些博客关于推荐算法的，欢迎查看，后序我会持续更新。
+
+[使用生产者和消费者算法加速数据处理](https://blog.csdn.net/Hello_Ray/article/details/109134775)
+
+[概率统计-方差与正态分布（高斯分布）](https://blog.csdn.net/Hello_Ray/article/details/96910606)
+
+[相关性与相似度](https://blog.csdn.net/Hello_Ray/article/details/104535532)

@@ -17,13 +17,13 @@ public class Recommand {
             RelateCountMatrixEntity entity = queue.poll();
             if (entity == null) {
                 try {
-                    logger.info("队列数据为空，等待1000ms...");
-                    Thread.sleep(3000);
+                    logger.info("queue data is null，waiting 1000ms...");
+                    Thread.sleep(1000);
                 } catch (Exception e) {
                     //
                 }
             }
-            //判断队列中是否是最后一条记录
+            //判断队列中是否是最后一条记录 determine if the queue is the last record
             if (entity != null && entity.getCount() == -1) {
                 break;
             }
@@ -35,7 +35,7 @@ public class Recommand {
         }
     }
 
-    //关联程度的分子，两个列表相同的数量
+    //关联程度的分子，两个列表相同的数量 the same number of two lists
     protected int countListTotalSame(List<String> primaryItemList, List<String> secondaryItemList) {
         int index = 0;
         for (String primaryItem : primaryItemList) {

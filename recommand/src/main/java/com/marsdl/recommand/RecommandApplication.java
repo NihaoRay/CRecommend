@@ -26,6 +26,8 @@ public class RecommandApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 		String filePath = "C:\\Users\\chenrui\\Desktop\\test.csv";
+        readCsv.readWithCsvBeanReader(filePath);
+
 //        String filePath = "C:\\Users\\chenrui\\Desktop\\10million_ratings.csv";
 //        String filePath = "C:\\Users\\chenrui\\Desktop\\10million_ratings.csv";
 //        String filePath = "C:\\Users\\chenrui\\Desktop\\70w.csv";

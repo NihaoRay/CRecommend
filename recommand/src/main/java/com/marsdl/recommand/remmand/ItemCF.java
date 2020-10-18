@@ -31,6 +31,7 @@ public class ItemCF extends Recommand {
     private String itemAndItemUserListMatrix;
 
     //用户与用户之间的关联程度矩阵队列，消费者消费后存放库中
+    //The relation score between users matrix queue, consumer after consumption store in the repository
     private Queue<KeyMatrixEntity> queue = new ConcurrentLinkedQueue<>();
 
     public void createMatrix() {
@@ -49,7 +50,11 @@ public class ItemCF extends Recommand {
         logger.info("消耗时间：{}", wasteTime);
     }
 
-    //用户与用户的关联程度计算方法，会将结果存放在队列中，供消费者进程消费后进行其他操作
+    /**
+     * 用户与用户的关联程度计算方法，会将结果存放在队列中，供消费者进程消费后进行其他操作
+     * The relation score between the user and the user is calculated by storing the results in a queue
+     * for the consumer process to do other operations after consumption
+     */
     private String itemAndItemMatrix(String id) {
         List<ItemUserList> itemUserListList = dao.findByCursorId(id, ItemUserList.class, itemUserListCollection);
         if (CollectionUtils.isEmpty(itemUserListList)) {
@@ -70,11 +75,13 @@ public class ItemCF extends Recommand {
 
                         continue;
                     }
+                    //计算两个产品的相似度 computing relation score between items
                     int totalSameScore = countListTotalSame(item.getUserList(), currentItemUserList.getUserList());
                     double relateScore = totalSameScore / (Math.sqrt(item.getUserList().size()) * Math.sqrt(currentItemUserList.getUserList().size()));
                     if (relateScore <= 0) {
                         continue;
                     }
+                    //将产品的相似度放入列表进行下次比较, Put relation score of item in the list for the next comparison
                     List<RelateCountMatrixEntity> matrixList = itemMatrixListMap.get(currentItemUserList.getItemId());
                     if (CollectionUtils.isEmpty(matrixList)) {
                         matrixList = new ArrayList<>();
@@ -97,6 +104,7 @@ public class ItemCF extends Recommand {
     }
 
     //插入排序
+    //insertion sorting
     private void sort(RelateCountMatrixEntity entity, List<RelateCountMatrixEntity> list) {
         list.add(entity);
         int size = list.size() - 1;
@@ -116,20 +124,22 @@ public class ItemCF extends Recommand {
         list.set(index, entity);
     }
 
-    //消费队列数据
+    //消费队列的数据
+    //consuming queue data
     private void consumerQueue() {
         long startTime = System.currentTimeMillis();
         while (true) {
             KeyMatrixEntity entity = queue.poll();
             if (entity == null) {
                 try {
-                    logger.info("队列数据为空，等待500ms...");
+                    logger.info("queue data is null, waiting 500ms...");
                     Thread.sleep(500);
                 } catch (Exception e) {
                     //
                 }
             }
             //判断队列中是否是最后一条记录
+            //determine if the queue is the last record
             if (entity != null && "-1".equals(entity.getKey())) {
                 break;
             }
@@ -140,7 +150,7 @@ public class ItemCF extends Recommand {
             }
         }
         long endTime = System.currentTimeMillis() - startTime;
-        logger.info("计算商品矩阵消耗时间: {}", endTime);
+        logger.info("create matrix waste time : {}", endTime);
     }
 
 
