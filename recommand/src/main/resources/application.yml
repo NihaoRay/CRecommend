@@ -2,12 +2,14 @@ mongodb:
   service:
     host: localhost
     port: 27017
-    dbname: test
+    dbname: xiaotidb
   recommand:
     user_item_list_collection: user_item_list_map_test
     item_user_list_collection: item_user_list_map_test
     user_and_user_item_list_matrix: user_and_user_item_list_matrix_test
     item_and_item_user_list_matrix: item_and_item_user_list_matrix_test
+    xiaoti_hotquestion: xiaoti_hotquestion
+    xiaoti_similarquestion: xiaoti_similarquestion
 
 redis:
   host: localhost

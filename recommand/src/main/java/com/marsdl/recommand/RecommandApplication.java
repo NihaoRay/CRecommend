@@ -28,7 +28,11 @@ public class RecommandApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        String filePath = "C:\\Users\\crdch\\Desktop\\xiaoti_behavior.log";
+        if (args == null || args.length < 1) {
+            System.out.println("请指定log地址");
+            return;
+        }
+        String filePath = args[0];
         handleLog.readLog(filePath);
 
 //		String filePath = "C:\\workspace\\github\\CRecommend\\recommand\\doc\\test.csv";

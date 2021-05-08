@@ -1,5 +1,6 @@
 package com.marsdl.recommand.io;
 
+import com.alibaba.fastjson.JSON;
 import com.marsdl.recommand.dao.Dao;
 import com.marsdl.recommand.entity.CustomRatingEntity;
 import com.marsdl.recommand.entity.HotQuestion;
@@ -95,6 +96,7 @@ public class HandleLog {
             hotQuestion.setHotValue(hotValue);
             hotQuestion.setCourse(dbResource.getCourse());
 
+            System.out.println(JSON.toJSONString(hotQuestion));
             dao.saveEntity(hotQuestion, xiaotiHotquestion);
         }
 
