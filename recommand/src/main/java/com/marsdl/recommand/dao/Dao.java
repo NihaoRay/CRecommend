@@ -50,6 +50,15 @@ public class Dao {
         return mongoTemplate.find(query, t, collectionName);
     }
 
+    //查找题库试题数据
+    public <T> T findQuestion(String titleId, Class<T> t, final String collectionName) {
+        Query query = new Query();
+        if (StringUtils.isNotBlank(titleId)) {
+            query.addCriteria(Criteria.where("titleId").is(titleId));
+        }
+        return mongoTemplate.findOne(query, t, collectionName);
+    }
+
     public long count(final String collectionName) {
         Query query = new Query();
         query.addCriteria(Criteria.where("_id").gt(new ObjectId(new Date(0))));
@@ -108,6 +117,10 @@ public class Dao {
         Query query = new Query();
         query.addCriteria(new Criteria().orOperator(Criteria.where("xAxis").is(axis), Criteria.where("yAxis").is(axis)));
         return mongoTemplate.find(query, RelateCountMatrixEntity.class, collectionName);
+    }
+
+    public void dropCollection(final String collectionName) {
+        mongoTemplate.dropCollection(collectionName);
     }
 
     public <T> void saveEntity(T entity, final String collectionName) {

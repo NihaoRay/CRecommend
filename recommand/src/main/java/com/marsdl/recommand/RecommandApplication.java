@@ -1,5 +1,6 @@
 package com.marsdl.recommand;
 
+import com.marsdl.recommand.io.HandleLog;
 import com.marsdl.recommand.io.ReadCsv;
 import com.marsdl.recommand.remmand.ItemCF;
 import com.marsdl.recommand.remmand.UserCF;
@@ -18,6 +19,8 @@ public class RecommandApplication implements CommandLineRunner {
     private ItemCF itemCF;
     @Resource
     private ReadCsv readCsv;
+    @Resource
+    private HandleLog handleLog;
 
     public static void main(String[] args) {
         SpringApplication.run(RecommandApplication.class, args);
@@ -25,8 +28,11 @@ public class RecommandApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-		String filePath = "C:\\Users\\chenrui\\Desktop\\test.csv";
-        readCsv.readWithCsvBeanReader(filePath);
+        String filePath = "C:\\Users\\crdch\\Desktop\\xiaoti_behavior.log";
+        handleLog.readLog(filePath);
+
+//		String filePath = "C:\\workspace\\github\\CRecommend\\recommand\\doc\\test.csv";
+//        readCsv.readWithCsvBeanReader(filePath);
 
 //        String filePath = "C:\\Users\\chenrui\\Desktop\\10million_ratings.csv";
 //        String filePath = "C:\\Users\\chenrui\\Desktop\\10million_ratings.csv";
@@ -35,6 +41,6 @@ public class RecommandApplication implements CommandLineRunner {
 //        userCF.createMatrix();
 //        userCF.createItemUserListCountMap();
 //        userCF.createMatrix();
-        itemCF.createMatrix();
+//        itemCF.createMatrix();
     }
 }
